@@ -1,0 +1,48 @@
+version: '2.1'
+
+x-healthcheck-common-setup: &healthcheck-common-setup
+  interval: 5s
+  timeout: 2s
+  retries: 40
+
+x-healthcheck-mysql-setup: &healthcheck-mysql-setup
+  healthcheck:
+    test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "mysql", "--password=mysql"]
+    <<: *healthcheck-common-setup
+
+services:
+  studies-and-me-db:
+    image: 085816956471.dkr.ecr.eu-west-1.amazonaws.com/com.leoilab/mysql:5.7.26-tls
+    environment:
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_DATABASE=studies-and-me
+      - MYSQL_ROOT_PASSWORD=secret
+      - DB_MIGRATEONSTARTUP=true
+    ports:
+      - 19103:3306
+    <<: *healthcheck-mysql-setup
+
+  studies-and-me-backend:
+    image: com.studiesandme/studiesandme-backend-exercise:latest
+    mem_limit: 2304M # must be equivalent or less than ecs-deploy/cf-task-template.json > Task > ContainerDefinitions[0] > Memory
+    environment:
+      - DB_CLUSTER1_URL=jdbc:mysql://studies-and-me-db/studies-and-me?useUnicode=yes
+      - DB_CLUSTER1_USER=mysql
+      - DB_CLUSTER1_PASS=mysql
+    ports:
+      - 9103:9103
+    depends_on:
+      studies-and-me-db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "localhost:9103/v1/status", "-O", "-"]
+      <<: *healthcheck-common-setup
+
+  studiesandme-wait:
+    image: 085816956471.dkr.ecr.eu-west-1.amazonaws.com/docker/whalesay:latest
+    command: "cowsay all services healthy"
+    depends_on:
+      studies-and-me-backend:
+        condition: service_healthy
+
