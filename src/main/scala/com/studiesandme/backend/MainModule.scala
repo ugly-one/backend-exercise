@@ -1,8 +1,7 @@
 package com.studiesandme.backend
 
 import com.google.inject.{Provides, Singleton}
-import com.leoilab.db.DBEnv
-import com.leoilab.sensible.rest.AppModule
+import com.studiesandme.backend.common.{AppModule, DBEnv}
 import slick.jdbc.JdbcProfile
 
 class MainModule extends AppModule {

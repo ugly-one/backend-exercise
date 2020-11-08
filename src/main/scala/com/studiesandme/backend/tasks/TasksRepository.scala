@@ -4,10 +4,7 @@ import java.sql.SQLIntegrityConstraintViolationException
 import java.time.Instant
 
 import com.google.inject.Inject
-import com.leoilab.concurrent.SpecialExecutionTactics
-import com.leoilab.db.{DBComponent, DBEnv}
-import com.leoilab.newtype.NewtypeSlick
-import com.leoilab.sensible.health.Health
+import com.studiesandme.backend.common.{DBComponent, DBEnv, Health, NewtypeSlick, SpecialExecutionTactics}
 import com.studiesandme.backend.{RepositoryHealthCheck, StudiesAndMeMappers, StudiesAndMeRepository}
 import slick.jdbc.JdbcProfile
 import slick.jdbc.MySQLProfile.api._

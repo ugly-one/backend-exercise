@@ -1,7 +1,7 @@
 package com.studiesandme.backend
 
+import com.studiesandme.backend.common.{StandardSpec, UnitTestSupport}
 import com.studiesandme.backend.tasks._
-import com.leoilab.testkit.{StandardSpec, UnitTestSupport}
 import sangria.schema.Schema
 import spray.json.DefaultJsonProtocol
 import graphient.{GraphqlCall, Query, QueryGenerator}

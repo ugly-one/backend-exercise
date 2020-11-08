@@ -2,7 +2,7 @@ package com.studiesandme.backend
 
 import java.util.UUID
 
-import com.leoilab.newtype.Newtype
+import com.studiesandme.backend.common.Newtype
 import com.studiesandme.backend.tasks.TaskId
 import sangria.schema.{Argument, ScalarAlias, ScalarType, StringType}
 import sangria.validation.ValueCoercionViolation

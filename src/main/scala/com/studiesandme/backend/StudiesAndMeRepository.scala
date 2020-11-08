@@ -3,9 +3,7 @@ package com.studiesandme.backend
 import java.sql.Timestamp
 import java.time.Instant
 
-import com.leoilab.db.{Clients, DBComponent, StandardMappers}
-import com.leoilab.id.ClientId
-import com.leoilab.newtype.NewtypeSlick
+import com.studiesandme.backend.common.{ClientId, Clients, DBComponent, NewtypeSlick, StandardMappers}
 import com.studiesandme.backend.tasks.TaskId
 
 trait StudiesAndMeColumnTypes extends NewtypeSlick { this: DBComponent =>

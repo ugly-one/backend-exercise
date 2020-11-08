@@ -2,8 +2,7 @@ package com.studiesandme.backend
 
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.google.inject.Inject
-import com.leoilab.concurrent.SpecialExecutionTactics
-import com.leoilab.sensible.health.{Health, HealthCheck, Healthy}
+import com.studiesandme.backend.common.{Health, HealthCheck, Healthy, SpecialExecutionTactics}
 import com.studiesandme.backend.tasks._
 import com.typesafe.scalalogging.StrictLogging
 
@@ -21,6 +20,7 @@ class TasksServiceImpl @Inject() (
     with SpecialExecutionTactics
     with SprayJsonSupport
     with StrictLogging {
+
   override def isHealthy: Future[Health] = Future.successful(Healthy)
 
   override def create(input: CreateTaskInput): Future[Task] = {

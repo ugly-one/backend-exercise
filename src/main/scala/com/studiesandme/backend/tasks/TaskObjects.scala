@@ -2,9 +2,9 @@ package com.studiesandme.backend
 
 import java.util.UUID
 
-import com.leoilab.newtype.Newtype
-import com.leoilab.newtype.NewtypeSpray.Implicits._
-import com.leoilab.newtype.NewtypeSpray.deriveJsonFormat
+import com.studiesandme.backend.common.Newtype
+import com.studiesandme.backend.common.NewtypeSpray.Implicits._
+import com.studiesandme.backend.common.NewtypeSpray.deriveJsonFormat
 import spray.json.RootJsonFormat
 
 package tasks {

@@ -1,8 +1,6 @@
 package com.studiesandme.backend
 
-import com.leoilab.db.DBEnv
-import com.leoilab.id.ClientId
-import com.leoilab.sensible.health.{Health, HealthCheck, Healthy, Unhealthy}
+import com.studiesandme.backend.common.{ClientId, DBEnv, Health, HealthCheck, Healthy, Unhealthy}
 
 import scala.concurrent.{ExecutionContext, Future}
 
