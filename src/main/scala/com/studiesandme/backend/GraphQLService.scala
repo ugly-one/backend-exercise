@@ -3,8 +3,7 @@ package com.studiesandme.backend
 import scala.concurrent.Future
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.google.inject.Inject
-import com.leoilab.concurrent.SpecialExecutionTactics
-import com.leoilab.sensible.health.{Health, HealthCheck, Healthy}
+import com.studiesandme.backend.common.{Health, HealthCheck, Healthy, SpecialExecutionTactics}
 import com.studiesandme.backend.tasks.{CreateTaskInput, Task}
 import com.typesafe.scalalogging.StrictLogging
 

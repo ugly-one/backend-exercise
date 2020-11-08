@@ -4,12 +4,11 @@ import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Route
 import com.google.inject.Inject
-import com.leoilab.concurrent.SpecialExecutionTactics
-import com.leoilab.sensible.rest.RestComponent
-import com.leoilab.sensible.rest.directives.AuthDirectives
+import com.studiesandme.backend.common.{AuthDirectives, RestComponent, SpecialExecutionTactics}
 import sangria.parser.DeliveryScheme.Try
 import sangria.parser.QueryParser
 import spray.json.{JsObject, JsString}
+
 import scala.util.{Failure, Success}
 
 class ApiImpl @Inject() (graphQl: GraphQl)

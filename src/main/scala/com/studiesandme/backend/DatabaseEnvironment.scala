@@ -1,7 +1,6 @@
 package com.studiesandme.backend
 
-import com.leoilab.config.ConfigValues
-import com.leoilab.db.DBEnv
+import com.studiesandme.backend.common.{ConfigValues, DBEnv}
 import javax.inject.Inject
 import slick.jdbc.JdbcProfile
 

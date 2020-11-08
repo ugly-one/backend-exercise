@@ -3,11 +3,16 @@ package com.studiesandme.backend
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.{HttpRequest, StatusCodes}
 import akka.http.scaladsl.server.Route
-import com.leoilab.auth.{AccessToken, AuthInfo}
-import com.leoilab.db.Clients
-import com.leoilab.id.UserId
 import com.studiesandme.backend.tasks.{CreateTaskInput, Task}
-import com.leoilab.testkit.{AuthSupport, StandardSpec, UnitTestSupport}
+import com.studiesandme.backend.common.{
+  AccessToken,
+  AuthInfo,
+  AuthSupport,
+  Clients,
+  StandardSpec,
+  UnitTestSupport,
+  UserId,
+}
 import sangria.ast.Document
 import org.mockito.Mockito._
 import org.mockito.ArgumentMatchers.any

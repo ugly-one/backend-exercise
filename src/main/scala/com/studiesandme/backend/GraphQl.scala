@@ -2,7 +2,7 @@ package com.studiesandme.backend
 
 import akka.http.scaladsl.model.{StatusCode, StatusCodes}
 import com.google.inject.Inject
-import com.leoilab.concurrent.SpecialExecutionTactics
+import com.studiesandme.backend.common.SpecialExecutionTactics
 import com.studiesandme.backend.tasks.TasksGraphQLSchema
 import com.typesafe.scalalogging.StrictLogging
 import sangria.ast.Document

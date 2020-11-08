@@ -2,8 +2,8 @@ package com.studiesandme.backend
 
 import java.time.Instant
 
-import com.leoilab.newtype.NewtypeSpray.Implicits._
-import com.leoilab.newtype.NewtypeSpray.deriveJsonFormat
+import com.studiesandme.backend.common.NewtypeSpray.Implicits._
+import com.studiesandme.backend.common.NewtypeSpray.deriveJsonFormat
 import com.studiesandme.backend.tasks.TaskId
 import spray.json.{deserializationError, DefaultJsonProtocol, JsNumber, JsValue, JsonFormat}
 

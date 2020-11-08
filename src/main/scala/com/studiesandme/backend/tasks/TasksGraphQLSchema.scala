@@ -1,7 +1,7 @@
 package com.studiesandme.backend.tasks
 
+import com.studiesandme.backend.common.SpecialExecutionTactics
 import sangria.macros.derive.deriveInputObjectType
-import com.leoilab.concurrent.SpecialExecutionTactics
 import com.studiesandme.backend.{BaseGraphQLSchema, GraphQLService}
 import sangria.marshalling.sprayJson._
 import sangria.schema.{fields, Argument, Field, InputObjectType, ListType, LongType, ObjectType, StringType}
