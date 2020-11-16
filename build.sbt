@@ -72,7 +72,6 @@ lazy val root = (project in file("."))
         "com.typesafe.akka" %% "akka-stream-testkit" % akkaV, //% Test,
         "com.typesafe.akka" %% "akka-slf4j" % akkaV,
         "com.typesafe.akka" %% "akka-http-testkit" % akkaHttpV, // % Test,
-        "io.github.erdeszt" %% "graphient" % "0.1.15",
         "org.scalatest" %% "scalatest" % "3.0.5" % "compile, test",
         "mysql" % "mysql-connector-java" % "8.0.18",
         "com.github.pureconfig" %% "pureconfig" % "0.12.1",
