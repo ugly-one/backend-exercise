@@ -12,7 +12,7 @@ x-healthcheck-mysql-setup: &healthcheck-mysql-setup
 
 services:
   studies-and-me-db:
-    image: 085816956471.dkr.ecr.eu-west-1.amazonaws.com/com.leoilab/mysql:5.7.26-tls
+    image: andreasfrisch/temp_mysql
     environment:
       - MYSQL_USER=mysql
       - MYSQL_PASSWORD=mysql
