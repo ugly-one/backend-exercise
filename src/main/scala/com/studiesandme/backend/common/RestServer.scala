@@ -31,8 +31,10 @@ class RestServer @Inject() (
         scala.io.Source.fromURL(url, "ISO-8859-1").getLines().toList
       }
       .filter { manifestLines =>
-        // Take all manifests that contain Git-Head-Rev and are published by leoilab
-        manifestLines.exists(_.contains("Git-Head-Rev")) && manifestLines.contains("Implementation-Vendor: com.leoilab")
+        // Take all manifests that contain Git-Head-Rev and are published by studiesandme
+        manifestLines.exists(_.contains("Git-Head-Rev")) && manifestLines.contains(
+          "Implementation-Vendor: com.studiesandme",
+        )
       }
       .map { lines =>
         // Take all git revisions

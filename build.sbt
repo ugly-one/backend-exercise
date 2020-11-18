@@ -22,7 +22,7 @@ lazy val dockerSettings = dockerfile in docker := {
   val libDir: File = pack.value / "lib"
 
   new Dockerfile {
-    from("085816956471.dkr.ecr.eu-west-1.amazonaws.com/com.leoilab/base:v2.2")
+    from("andreasfrisch/temp_scala_base")
 
     add(runScript, runScriptTarget)
     run("chmod", "+x", runScriptTarget.toString)
