@@ -38,11 +38,3 @@ services:
     healthcheck:
       test: ["CMD", "wget", "localhost:9103/v1/status", "-O", "-"]
       <<: *healthcheck-common-setup
-
-  studiesandme-wait:
-    image: 085816956471.dkr.ecr.eu-west-1.amazonaws.com/docker/whalesay:latest
-    command: "cowsay all services healthy"
-    depends_on:
-      studies-and-me-backend:
-        condition: service_healthy
-
