@@ -32,12 +32,13 @@ package tasks {
       description: String,
       createdAt:   Instant,
       modifiedAt:  Instant,
+      completed:   Boolean,
   )
   object Task extends StudiesAndMeJsonFormatters {
     def tupled = (Task.apply _).tupled
 
     implicit val taskFormat: RootJsonFormat[Task] =
-      jsonFormat4(Task.apply)
+      jsonFormat5(Task.apply)
 
     def fromInput(input: CreateTaskInput): Task = {
       Task(
@@ -45,6 +46,7 @@ package tasks {
         description = input.description,
         createdAt   = Instant.now(),
         modifiedAt  = Instant.now(),
+        completed   = false,
       )
     }
   }

@@ -26,9 +26,10 @@ trait TasksTable extends StudiesAndMeMappers with NewtypeSlick {
     val description = column[String]("description")
     val createdAt   = column[Instant]("createdAt")
     val modified    = column[Instant]("modified")
+    val completed   = column[Boolean]("completed")
 
     def * =
-      (id, description, createdAt, modified)
+      (id, description, createdAt, modified, completed)
         .mapTo[Task]
   }
 

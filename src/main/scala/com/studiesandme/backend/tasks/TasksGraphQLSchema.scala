@@ -4,7 +4,7 @@ import com.studiesandme.backend.common.SpecialExecutionTactics
 import sangria.macros.derive.deriveInputObjectType
 import com.studiesandme.backend.{BaseGraphQLSchema, GraphQLService}
 import sangria.marshalling.sprayJson._
-import sangria.schema.{fields, Argument, Field, InputObjectType, ListType, LongType, ObjectType, StringType}
+import sangria.schema.{fields, Argument, Field, InputObjectType, ListType, LongType, ObjectType, StringType, BooleanType}
 
 trait TasksGraphQLSchema extends BaseGraphQLSchema with SpecialExecutionTactics {
   import ScalarHelpers._
@@ -24,6 +24,7 @@ trait TasksGraphQLSchema extends BaseGraphQLSchema with SpecialExecutionTactics 
         LongType,
         resolve = _.value.modifiedAt.getEpochSecond(),
       ),
+      Field("completed", BooleanType, resolve = _.value.completed),
     ),
   )
 
