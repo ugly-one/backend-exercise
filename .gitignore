@@ -1,5 +1,9 @@
 *.log
 .idea
+.vscode
+.bloop
+.metals
+metals.sbt
 target/
 .DS_Store
 node_modules
