@@ -39,7 +39,12 @@ class TasksServiceImpl @Inject() (
   override def complete(id: CompleteTaskInput): Future[Task] = {
       for {
         task <- tasksRepository.get(id.id)
-        result <- tasksRepository.update(task.copy(completed = true))
-      } yield result
+        updatedTask <- task match {
+          case Some(t) => {
+            tasksRepository.update(t.copy(completed = true))
+          }
+          case None => throw new Exception("no task with given id")
+        }
+      } yield updatedTask
   }
 }

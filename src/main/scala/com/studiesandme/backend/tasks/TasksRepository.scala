@@ -14,7 +14,7 @@ import scala.concurrent.Future
 trait TasksRepository { this: DBComponent =>
   def create(contact: Task): Future[Task]
   def list(): Future[List[Task]]
-  def get(id: TaskId): Future[Task]
+  def get(id: TaskId): Future[Option[Task]]
   def update(task: Task): Future[Task]
 }
 
@@ -70,13 +70,10 @@ class TasksRepositoryImpl @Inject() (val driver: JdbcProfile)(val dbEnv: DBEnv)
         case result @ _ => result.toList
       }
 
-  override def get(id: TaskId): Future[Task] = 
+  override def get(id: TaskId): Future[Option[Task]] = 
     dbEnv.db
       .run {
-        allTasks.filter(_.id === id).result
-      }
-      .map {
-        case result @ _ => result.head
+        allTasks.filter(_.id === id).result.headOption
       }
 
   override def update(task: Task): Future[Task] = 
