@@ -15,6 +15,7 @@ trait TasksService {
   def create(contact: CreateTaskInput): Future[Task]
   def list(): Future[List[Task]]
   def complete(id: CompleteTaskInput): Future[Task]
+  def delete(id: CompleteTaskInput): Future[TaskId]
 }
 
 class TasksServiceImpl @Inject() (
@@ -46,5 +47,9 @@ class TasksServiceImpl @Inject() (
           case None => throw new Exception("no task with given id")
         }
       } yield updatedTask
+    }
+
+  override def delete(id: CompleteTaskInput): Future[TaskId] = {
+    tasksRepository.delete(id.id)
   }
 }

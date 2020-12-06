@@ -16,6 +16,7 @@ trait TasksRepository { this: DBComponent =>
   def list(): Future[List[Task]]
   def get(id: TaskId): Future[Option[Task]]
   def update(task: Task): Future[Task]
+  def delete(id: TaskId): Future[TaskId]
 }
 
 trait TasksTable extends StudiesAndMeMappers with NewtypeSlick {
@@ -85,6 +86,16 @@ class TasksRepositoryImpl @Inject() (val driver: JdbcProfile)(val dbEnv: DBEnv)
       .map {
         case 1 => task
       }
+  
+  override def delete(id: TaskId): Future[TaskId] = 
+  {
+    val taskFromDB = for { t <- allTasks if t.id === id } yield t
+    val action = taskFromDB.delete
+    dbEnv.db
+      .run(action)
+      .map(taskId => id)
+    
+  }
 
   override def isHealthy: Future[Health] =
     isHealthy(dbEnv, "Business Contacts repo")

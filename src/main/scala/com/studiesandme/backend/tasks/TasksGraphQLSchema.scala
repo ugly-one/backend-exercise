@@ -65,5 +65,12 @@ trait TasksGraphQLSchema extends BaseGraphQLSchema with SpecialExecutionTactics 
       arguments   = CompleteTaskInputArg :: Nil,
       resolve     = c => c.ctx.completeTask(c.arg(CompleteTaskInputArg)),
     )
+    def deleteTask(): Field[GraphQLService, Unit] = Field(
+      "deleteTask",
+      TaskIdType,
+      description = Some("Delete a task"),
+      arguments   = CompleteTaskInputArg :: Nil,
+      resolve     = c => c.ctx.deleteTask(c.arg(CompleteTaskInputArg)),
+    )
   }
 }

@@ -6,11 +6,13 @@ import com.google.inject.Inject
 import com.studiesandme.backend.common.{Health, HealthCheck, Healthy, SpecialExecutionTactics}
 import com.studiesandme.backend.tasks.{CreateTaskInput, Task, CompleteTaskInput}
 import com.typesafe.scalalogging.StrictLogging
+import com.studiesandme.backend.tasks.TaskId
 
 trait GraphQLService {
   def createTask(input: CreateTaskInput): Future[Task]
   def listTasks(): Future[List[Task]]
   def completeTask(id: CompleteTaskInput): Future[Task]
+  def deleteTask(id: CompleteTaskInput): Future[TaskId]
 }
 
 class GraphQLServiceImpl @Inject() (
@@ -31,5 +33,8 @@ class GraphQLServiceImpl @Inject() (
   }
   override def completeTask(id: CompleteTaskInput): Future[Task] = {
     tasksService.complete(id)
+  }
+  override def deleteTask(id: CompleteTaskInput): Future[TaskId] = {
+    tasksService.delete(id)
   }
 }
