@@ -14,8 +14,8 @@ import scala.util.Failure
 trait TasksService {
   def create(contact: CreateTaskInput): Future[Task]
   def list(): Future[List[Task]]
-  def complete(id: CompleteTaskInput): Future[Task]
-  def delete(id: CompleteTaskInput): Future[TaskId]
+  def complete(id: TaskIdInput): Future[Task]
+  def delete(id: TaskIdInput): Future[Task]
 }
 
 class TasksServiceImpl @Inject() (
@@ -37,7 +37,7 @@ class TasksServiceImpl @Inject() (
     tasksRepository.list()
   }
 
-  override def complete(id: CompleteTaskInput): Future[Task] = {
+  override def complete(id: TaskIdInput): Future[Task] = {
       for {
         task <- tasksRepository.get(id.id)
         updatedTask <- task match {
@@ -49,7 +49,16 @@ class TasksServiceImpl @Inject() (
       } yield updatedTask
     }
 
-  override def delete(id: CompleteTaskInput): Future[TaskId] = {
-    tasksRepository.delete(id.id)
+  override def delete(id: TaskIdInput): Future[Task] = {
+    for {
+      taskOption <- tasksRepository.get(id.id)
+      taskToDelete <- taskOption match {
+        case Some(task) => {
+          tasksRepository.delete(id.id)
+          Future(task)
+        }
+        case None => throw new Exception("no task with given id")
+      }
+    } yield taskToDelete
   }
 }

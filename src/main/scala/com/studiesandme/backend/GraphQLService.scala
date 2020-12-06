@@ -4,15 +4,15 @@ import scala.concurrent.Future
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import com.google.inject.Inject
 import com.studiesandme.backend.common.{Health, HealthCheck, Healthy, SpecialExecutionTactics}
-import com.studiesandme.backend.tasks.{CreateTaskInput, Task, CompleteTaskInput}
+import com.studiesandme.backend.tasks.{CreateTaskInput, Task, TaskIdInput}
 import com.typesafe.scalalogging.StrictLogging
 import com.studiesandme.backend.tasks.TaskId
 
 trait GraphQLService {
   def createTask(input: CreateTaskInput): Future[Task]
   def listTasks(): Future[List[Task]]
-  def completeTask(id: CompleteTaskInput): Future[Task]
-  def deleteTask(id: CompleteTaskInput): Future[TaskId]
+  def completeTask(id: TaskIdInput): Future[Task]
+  def deleteTask(id: TaskIdInput): Future[Task]
 }
 
 class GraphQLServiceImpl @Inject() (
@@ -31,10 +31,10 @@ class GraphQLServiceImpl @Inject() (
   override def listTasks(): Future[List[Task]] = {
     tasksService.list()
   }
-  override def completeTask(id: CompleteTaskInput): Future[Task] = {
+  override def completeTask(id: TaskIdInput): Future[Task] = {
     tasksService.complete(id)
   }
-  override def deleteTask(id: CompleteTaskInput): Future[TaskId] = {
+  override def deleteTask(id: TaskIdInput): Future[Task] = {
     tasksService.delete(id)
   }
 }
