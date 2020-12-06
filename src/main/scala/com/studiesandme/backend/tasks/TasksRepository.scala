@@ -14,6 +14,8 @@ import scala.concurrent.Future
 trait TasksRepository { this: DBComponent =>
   def create(contact: Task): Future[Task]
   def list(): Future[List[Task]]
+  def get(id: TaskId): Future[Task]
+  def update(task: Task): Future[Task]
 }
 
 trait TasksTable extends StudiesAndMeMappers with NewtypeSlick {
@@ -66,6 +68,25 @@ class TasksRepositoryImpl @Inject() (val driver: JdbcProfile)(val dbEnv: DBEnv)
       }
       .map {
         case result @ _ => result.toList
+      }
+
+  override def get(id: TaskId): Future[Task] = 
+    dbEnv.db
+      .run {
+        allTasks.filter(_.id === id).result
+      }
+      .map {
+        case result @ _ => result.head
+      }
+
+  override def update(task: Task): Future[Task] = 
+    dbEnv.db
+      .run {
+        val taskFromDB = for { t <- allTasks if t.id === task.id } yield t
+        taskFromDB.update(task)
+      }
+      .map {
+        case 1 => task
       }
 
   override def isHealthy: Future[Health] =

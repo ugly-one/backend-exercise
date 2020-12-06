@@ -34,6 +34,10 @@ trait TasksGraphQLSchema extends BaseGraphQLSchema with SpecialExecutionTactics 
   val CreateTaskInputArg =
     Argument("input", CreateTaskInputType)
 
+  implicit val CompleteTaskInputType: InputObjectType[CompleteTaskInput] = 
+    deriveInputObjectType[CompleteTaskInput]()
+  val CompleteTaskInputArg = Argument("id", CompleteTaskInputType)
+
   object TaskQueries {
     def tasks(): Field[GraphQLService, Unit] = Field(
       "tasks",
@@ -53,6 +57,13 @@ trait TasksGraphQLSchema extends BaseGraphQLSchema with SpecialExecutionTactics 
       description = Some("Create new task"),
       arguments   = CreateTaskInputArg :: Nil,
       resolve     = c => c.ctx.createTask(c.arg(CreateTaskInputArg)),
+    )
+    def completeTask(): Field[GraphQLService, Unit] = Field(
+      "completeTask",
+      TaskType,
+      description = Some("Complete a task"),
+      arguments   = CompleteTaskInputArg :: Nil,
+      resolve     = c => c.ctx.completeTask(c.arg(CompleteTaskInputArg)),
     )
   }
 }

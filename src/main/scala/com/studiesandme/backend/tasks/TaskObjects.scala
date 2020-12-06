@@ -27,6 +27,14 @@ package tasks {
       jsonFormat1(CreateTaskInput.apply)
   }
 
+  final case class CompleteTaskInput(
+      id: TaskId,
+  )
+  object CompleteTaskInput extends StudiesAndMeJsonFormatters {
+    implicit  val completeTaskInputFormat: RootJsonFormat[CompleteTaskInput] =
+      jsonFormat1(CompleteTaskInput.apply)
+  }
+
   final case class Task(
       id:          TaskId,
       description: String,

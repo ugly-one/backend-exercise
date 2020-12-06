@@ -7,10 +7,14 @@ import com.studiesandme.backend.tasks._
 import com.typesafe.scalalogging.StrictLogging
 
 import scala.concurrent.Future
+import java.time.Instant
+import scala.util.Success
+import scala.util.Failure
 
 trait TasksService {
   def create(contact: CreateTaskInput): Future[Task]
   def list(): Future[List[Task]]
+  def complete(id: CompleteTaskInput): Future[Task]
 }
 
 class TasksServiceImpl @Inject() (
@@ -30,5 +34,12 @@ class TasksServiceImpl @Inject() (
 
   override def list(): Future[List[Task]] = {
     tasksRepository.list()
+  }
+
+  override def complete(id: CompleteTaskInput): Future[Task] = {
+      for {
+        task <- tasksRepository.get(id.id)
+        result <- tasksRepository.update(task.copy(completed = true))
+      } yield result
   }
 }
