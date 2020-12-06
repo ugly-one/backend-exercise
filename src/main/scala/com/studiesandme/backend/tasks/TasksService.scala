@@ -16,6 +16,7 @@ trait TasksService {
   def list(): Future[List[Task]]
   def complete(id: TaskIdInput): Future[Task]
   def delete(id: TaskIdInput): Future[Task]
+  def updateDescription(id: TaskId, description: String): Future[Task]
 }
 
 class TasksServiceImpl @Inject() (
@@ -26,39 +27,52 @@ class TasksServiceImpl @Inject() (
     with SprayJsonSupport
     with StrictLogging {
 
-  override def isHealthy: Future[Health] = Future.successful(Healthy)
-
-  override def create(input: CreateTaskInput): Future[Task] = {
-    val newTask = Task.fromInput(input)
-    tasksRepository.create(newTask)
-  }
-
-  override def list(): Future[List[Task]] = {
-    tasksRepository.list()
-  }
-
-  override def complete(id: TaskIdInput): Future[Task] = {
-      for {
-        task <- tasksRepository.get(id.id)
-        updatedTask <- task match {
-          case Some(t) => {
-            tasksRepository.update(t.copy(completed = true))
-          }
-          case None => throw new Exception("no task with given id")
-        }
-      } yield updatedTask
-    }
-
-  override def delete(id: TaskIdInput): Future[Task] = {
-    for {
-      taskOption <- tasksRepository.get(id.id)
-      taskToDelete <- taskOption match {
-        case Some(task) => {
-          tasksRepository.delete(id.id)
-          Future(task)
-        }
-        case None => throw new Exception("no task with given id")
+      override def isHealthy: Future[Health] = Future.successful(Healthy)
+      
+      override def create(input: CreateTaskInput): Future[Task] = {
+        val newTask = Task.fromInput(input)
+        tasksRepository.create(newTask)
       }
-    } yield taskToDelete
-  }
-}
+      
+      override def list(): Future[List[Task]] = {
+        tasksRepository.list()
+      }
+      
+      override def complete(id: TaskIdInput): Future[Task] = {
+        for {
+          task <- tasksRepository.get(id.id)
+          updatedTask <- task match {
+            case Some(t) => {
+              tasksRepository.update(t.copy(completed = true))
+            }
+            case None => throw new Exception("no task with given id")
+          }
+        } yield updatedTask
+      }
+      
+      override def delete(id: TaskIdInput): Future[Task] = {
+        for {
+          taskOption <- tasksRepository.get(id.id)
+          taskToDelete <- taskOption match {
+            case Some(task) => {
+              tasksRepository.delete(id.id)
+              Future(task)
+            }
+            case None => throw new Exception("no task with given id")
+          }
+        } yield taskToDelete
+      }
+
+      override def updateDescription(id: TaskId, description: String): Future[Task] = {
+        for {
+          taskOption <- tasksRepository.get(id)
+          taskToUpdate <- taskOption match {
+            case Some(task) => {
+              tasksRepository.update(task.copy(description = description))
+            }
+            case None => throw new Exception("no task with given id")
+          }
+        } yield taskToUpdate
+      }
+    }
+    

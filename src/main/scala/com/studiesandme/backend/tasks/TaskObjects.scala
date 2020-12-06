@@ -19,6 +19,15 @@ package tasks {
     def generate: TaskId = TaskId(UUID.randomUUID())
   }
 
+  final case class UpdateTaskDescriptionInput(
+    taskId: TaskId,
+    description: String,
+  )
+  object UpdateTaskDescriptionInput extends StudiesAndMeJsonFormatters {
+    implicit val updateTaskDescriptionInputFormat: RootJsonFormat[UpdateTaskDescriptionInput] =
+      jsonFormat2(UpdateTaskDescriptionInput.apply)
+  }
+
   final case class CreateTaskInput(
       description: String,
   )
